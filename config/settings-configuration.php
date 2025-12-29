@@ -51,13 +51,13 @@ class SystemConfig {
         $stmt->execute();
         $system_config = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->system_name              = $system_config ? $system_config['system_name'] : 'Smart Medicine Dispenser';
-        $this->system_copyright         = $system_config ? $system_config['system_copy_right'] : 'COPYRIGHT © 2025';
-        $this->system_phone_number      = $system_config ? $system_config['system_phone_number'] : null;
-        $this->system_email             = $system_config ? $system_config['system_email'] : null;
-        $this->system_logo              = $system_config ? $system_config['system_logo'] : 'smart-medicine-logo.png';
-        $this->system_favicon           = $system_config ? $system_config['system_favicon'] : null;
-        $this->system_config_last_update = $system_config ? $system_config['updated_at'] : null;
+        $this->system_name              = $system_config['system_name'];
+        $this->system_copyright         = $system_config['system_copy_right'];
+        $this->system_phone_number      = $system_config['system_phone_number'];
+        $this->system_email             = $system_config['system_email'];
+        $this->system_logo              = $system_config['system_logo'];
+        $this->system_favicon           = $system_config['system_favicon'];
+        $this->system_config_last_update = $system_config['updated_at'];
         
         // get email configuration
         $stmt = $this->runQuery("SELECT * FROM email_config LIMIT 1");
@@ -148,9 +148,9 @@ class MainUrl {
             $_SERVER['SERVER_ADDR']  === '127.0.0.1' ||
             $_SERVER['SERVER_ADDR']  === '192.168.1.72'
         ) {
-            $this->url = "http://localhost/medicine-dispenser"; // localhost
+            $this->url = "http://localhost/SMART-MEDCINE-DISPENSER"; // localhost
         } else {
-            $this->url = "https://medicine-dispenser-production.up.railway.app"; // Railway
+            $this->url = "https://automed.space"; // webhost
         }
     }
 

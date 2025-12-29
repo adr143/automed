@@ -64,18 +64,18 @@ class SystemConfig {
         $stmt->execute();
         $email_config = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->smtp_email              = $email_config ? $email_config['email'] : null;
-        $this->smtp_password           = $email_config ? $email_config['password'] : null;
-        $this->email_config_last_update = $email_config ? $email_config['updated_at'] : null;
+        $this->smtp_email              = $email_config['email'];
+        $this->smtp_password           = $email_config['password'];
+        $this->email_config_last_update = $email_config['updated_at'];
         
         // get Google reCAPTCHA V3 API configuration
         $stmt = $this->runQuery("SELECT * FROM google_recaptcha_api LIMIT 1");
         $stmt->execute();
         $google = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->SKey                         = $google ? $google['site_key'] : null;
-        $this->SSKey                        = $google ? $google['site_secret_key'] : null;
-        $this->google_recaptcha_api_last_update = $google ? $google['updated_at'] : null;
+        $this->SKey                         = $google['site_key'];
+        $this->SSKey                        = $google['site_secret_key'];
+        $this->google_recaptcha_api_last_update = $google['updated_at'];
     }
 
     public function runQuery($sql)

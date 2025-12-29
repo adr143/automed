@@ -75,17 +75,13 @@ $footer_signin = new FooterSignin();
     <?php echo $footer_signin->getFooterSignin() ?>
     <script>
         // CAPTCHA
-        <?php if (!empty($config->getSKey())): ?>
         grecaptcha.ready(function() {
-            grecaptcha.execute('<?php echo htmlspecialchars($config->getSKey()) ?>', {
+            grecaptcha.execute('<?php echo $config->getSKey() ?>', {
                 action: 'submit'
             }).then(function(token) {
                 document.getElementById("g-token").value = token;
             });
         });
-        <?php else: ?>
-        console.warn('reCAPTCHA keys not configured. Please configure your reCAPTCHA API keys in the admin settings.');
-        <?php endif; ?>
     </script>
     <!-- SWEET ALERT -->
     <?php include_once 'config/sweetalert.php'; ?>

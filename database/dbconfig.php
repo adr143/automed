@@ -9,14 +9,8 @@ class Database
 
     public function __construct()
     {
-        // Check if running on Railway (has Railway environment variables)
-        if (!empty(getenv('RAILWAY_ENVIRONMENT'))) {
-            // Railway MySQL connection
-            $this->host = getenv('MYSQLHOST') ?: getenv('RAILWAY_PRIVATE_DOMAIN');
-            $this->db_name = getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE') ?: 'railway';
-            $this->username = getenv('MYSQLUSER') ?: 'root';
-            $this->password = getenv('MYSQLPASSWORD') ?: getenv('MYSQL_ROOT_PASSWORD');
-        } else if (php_sapi_name() === 'cli' || !isset($_SERVER['SERVER_NAME'])) {
+        // Check if the script is running in CLI mode
+        if (php_sapi_name() === 'cli' || !isset($_SERVER['SERVER_NAME'])) {
             // Default to localhost configuration for CLI
             $this->host = "127.0.0.1"; // Use 127.0.0.1 to force TCP connection
             $this->db_name = "medicine_dispenser";

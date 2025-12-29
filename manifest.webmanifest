@@ -1,0 +1,21 @@
+{
+  "name": "AutoMed - Smart Medicine Dispenser",
+  "short_name": "AutoMed",
+  "description": "Smart medicine dispenser dashboard and user portal.",
+  "start_url": "/index.php",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "/src/img/smart-medicine-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/img/smart-medicine-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

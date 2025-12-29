@@ -150,7 +150,7 @@ class MainUrl {
         ) {
             $this->url = "http://localhost/medicine-dispenser"; // localhost
         } else {
-            $this->url = "https://automed.space"; // webhost
+            $this->url = "https://medicine-dispenser-production.up.railway.app"; // Railway
         }
     }
 

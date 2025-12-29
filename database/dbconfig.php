@@ -17,13 +17,13 @@ class Database
             $this->username = "root";
             $this->password = "";
         } else {
-            // Check if running on production (PlanetScale)
-            if (isset($_ENV['DATABASE_URL']) || getenv('DATABASE_URL')) {
-                // PlanetScale connection
-                $this->host = getenv('DB_HOST') ?: $_ENV['DB_HOST'];
-                $this->db_name = getenv('DB_NAME') ?: $_ENV['DB_NAME'];
-                $this->username = getenv('DB_USERNAME') ?: $_ENV['DB_USERNAME'];
-                $this->password = getenv('DB_PASSWORD') ?: $_ENV['DB_PASSWORD'];
+            // Check if running on Railway (production)
+            if (getenv('MYSQLDATABASE') || getenv('MYSQLHOST')) {
+                // Railway MySQL connection
+                $this->host = getenv('MYSQLHOST');
+                $this->db_name = getenv('MYSQLDATABASE');
+                $this->username = getenv('MYSQLUSER');
+                $this->password = getenv('MYSQLPASSWORD');
             } elseif ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '192.168.1.72') {
                 // Localhost connection
                 $this->host = "localhost";
@@ -31,11 +31,11 @@ class Database
                 $this->username = "root";
                 $this->password = "";
             } else {
-                // Live server connection
+                // Fallback connection
                 $this->host = "localhost";
-                $this->db_name = "u607408406_automed";
-                $this->username = "u607408406_automed";
-                $this->password = "Automed2025@";
+                $this->db_name = "medicine_dispenser";
+                $this->username = "root";
+                $this->password = "";
             }
         }
     }
@@ -44,7 +44,6 @@ class Database
     {
         $this->conn = null;
         try {
-            // PlanetScale requires SSL and specific options
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,

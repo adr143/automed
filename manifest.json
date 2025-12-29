@@ -10,18 +10,19 @@
   "scope": "/medicine-dispenser/",
   "icons": [
     {
-      "src": "src/img/smart-medicine-logo.png",
+      "src": "/medicine-dispenser/src/img/smart-medicine-logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "src/img/smart-medicine-logo.png",
+      "src": "/medicine-dispenser/src/img/smart-medicine-logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
     }
   ],
   "categories": ["health", "medical", "productivity"],
-  "lang": "en"
+  "lang": "en",
+  "prefer_related_applications": false
 }

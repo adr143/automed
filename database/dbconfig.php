@@ -9,34 +9,31 @@ class Database
 
     public function __construct()
     {
-        // Check if the script is running in CLI mode
-        if (php_sapi_name() === 'cli' || !isset($_SERVER['SERVER_NAME'])) {
-            // Default to localhost configuration for CLI
+        // Check if running on Railway (production)
+        if (getenv('MYSQLHOST')) {
+            // Railway MySQL connection
+            $this->host = getenv('MYSQLHOST');
+            $this->db_name = getenv('MYSQLDATABASE');
+            $this->username = getenv('MYSQLUSER');
+            $this->password = getenv('MYSQLPASSWORD');
+        } elseif (php_sapi_name() === 'cli' || !isset($_SERVER['SERVER_NAME'])) {
+            // CLI mode
             $this->host = "127.0.0.1";
             $this->db_name = "medicine_dispenser";
             $this->username = "root";
             $this->password = "";
+        } elseif (isset($_SERVER['SERVER_NAME']) && ($_SERVER['SERVER_NAME'] === 'localhost' || (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] === '127.0.0.1'))) {
+            // Localhost connection
+            $this->host = "localhost";
+            $this->db_name = "medicine_dispenser";
+            $this->username = "root";
+            $this->password = "";
         } else {
-            // Check if running on Railway (production)
-            if (getenv('MYSQLDATABASE') || getenv('MYSQLHOST')) {
-                // Railway MySQL connection
-                $this->host = getenv('MYSQLHOST');
-                $this->db_name = getenv('MYSQLDATABASE');
-                $this->username = getenv('MYSQLUSER');
-                $this->password = getenv('MYSQLPASSWORD');
-            } elseif ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '192.168.1.72') {
-                // Localhost connection
-                $this->host = "localhost";
-                $this->db_name = "medicine_dispenser";
-                $this->username = "root";
-                $this->password = "";
-            } else {
-                // Fallback connection
-                $this->host = "localhost";
-                $this->db_name = "medicine_dispenser";
-                $this->username = "root";
-                $this->password = "";
-            }
+            // Fallback connection
+            $this->host = "localhost";
+            $this->db_name = "medicine_dispenser";
+            $this->username = "root";
+            $this->password = "";
         }
     }
 
@@ -56,6 +53,9 @@ class Database
 
         } catch (PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
+            echo "<br>Host: " . $this->host;
+            echo "<br>Database: " . $this->db_name;
+            echo "<br>Username: " . $this->username;
         }
 
         return $this->conn;
